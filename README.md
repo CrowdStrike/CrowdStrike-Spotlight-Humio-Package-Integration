@@ -3,7 +3,7 @@ This repository contains the consumer and shipper code driving data to the Crowd
 
 ## Configuration File Example
 > This client is powered by CrowdStrike's [FalconPy SDK](https://github.com/CrowdStrike/falconpy).
-> For more information on the SDK visit: https://github.com/CrowdStrike/falconpy.
+> For more information visit: https://github.com/CrowdStrike/falconpy.
 
 > For information about the Spotlight API visit: https://falcon.crowdstrike.com/documentation/98/spotlight-apis.
 
