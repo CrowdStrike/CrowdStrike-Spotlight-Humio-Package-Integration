@@ -51,7 +51,7 @@ def main():
         proxies = json.loads(cs_config['proxies'])
     else:
         proxies ={}
-    user_agent = 'Spotlight2Humio_V'+ version
+    user_agent = f"crowdstrike-spotlight2humio/{version}"
     read_timeout = int(cs_config['timeout_read'])
     conn_timeout = int(cs_config['timeout_conn'])
     
