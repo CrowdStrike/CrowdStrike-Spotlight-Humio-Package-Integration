@@ -92,7 +92,7 @@ def main():
          
     except Exception as e:
         logging.error(log_label + 'Unable to contact the CrowdStrike API. The error returned was: ' + str(e))
-        logging.error(log_label + 'The Client will not exit')
+        logging.error(log_label + 'The Client will now exit')
         sys.exit()
 
     if ir_status_code.startswith('2'):
