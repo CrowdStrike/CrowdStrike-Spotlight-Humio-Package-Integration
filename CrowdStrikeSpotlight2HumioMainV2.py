@@ -106,7 +106,7 @@ def main():
     
     #determine if there are any vulnerabilities to actually process
     if total_vul_ids == 0:
-        logging.info(log_label + 'There is currently no data matching the criteria to collect, client will not exit.')
+        logging.info(log_label + 'There is currently no data matching the criteria to collect, client will now exit.')
         sys.exit()
     else:
         logging.info(log_label + ' The total number of vulnerabilities identified = ' + str(total_vul_ids))
