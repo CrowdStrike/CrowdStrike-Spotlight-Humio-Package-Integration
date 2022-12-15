@@ -1,1 +1,3 @@
 crowdstrike-falconpy>=1.0.0
+humiolib
+python-dateutil
