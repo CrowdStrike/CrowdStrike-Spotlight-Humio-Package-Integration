@@ -1,11 +1,13 @@
 # CrowdStrike Spotlight Package Integration
+
 This repository contains the consumer and shipper code driving data to the CrowdStrike Spotlight Humio Package
 
-## Configuration File Example
+## Configuration File Example - run on linux VM
+>
 > This client is powered by CrowdStrike's [FalconPy SDK](https://github.com/CrowdStrike/falconpy).
-> For more information visit: https://github.com/CrowdStrike/falconpy.
+> For more information visit: <https://github.com/CrowdStrike/falconpy>.
 
-> For information about the Spotlight API visit: https://falcon.crowdstrike.com/documentation/98/spotlight-apis.
+> For information about the Spotlight API visit: <https://falcon.crowdstrike.com/documentation/98/spotlight-apis>.
 
 ```ini
 [Logging]
@@ -18,7 +20,7 @@ proxy_used = False                                              #set to True for
 proxies = {}                                                    #configure with proper python proxy syntax
 limit = 490
 filter = updated_timestamp:>                                    #at least 1 filter must be set, updated_timestamp is the best timestamp to use
-time_filter = '2021-10-11T00:00:12Z'                            #timestamp to start from, must be enclosed in single quotes
+time_filter = '2022-10-11T00:00:12Z'                            #timestamp to start from, must be enclosed in single quotes
                                                                 #keep in mind the retention policy for Humio when setting this as older data will not be retained
 updated_timestamp = '2022-06-16T21:33:56Z'                      #timestamp populated by client for follow on queries, no not populate/modify
 sort = updated_timestamp|asc                                    #sorting logic, recommended this not be modified
@@ -35,4 +37,22 @@ humiohectoken =                                                 #Humio HEC token
 content-type = application/json                                 #HEC post header setting, do not modify
 accept = application/json                                       #HEC post header setting, do not modify
 humiohecverify = True                                           #HEC SSL verify setting, modified only if needed
+```
+
+## Configuration Example - Run in container
+
+The application may be executed using container common settings may be provided by environment, cron or systemd can
+be used to schedule the task
+
+```bash
+#run this command only once this volume is used to store the checkpoint
+#docker volume create cwd-spotlight-data
+
+docker run \
+    -e HUMIO_HEC_URL=https://cloud.us.humio.com/api/v1/ingest/hec/raw  \
+    -e HUMIO_HEC_TOKEN=<humiohectoken> \
+    -e FALCON_CLIENT_ID=<client_id> \
+    -e FALCON_CLIENT_SECRET=<client_secret> \
+    --mount source=cwd-spotlight-data,target=/data \
+    ghcr.io/crowdstrike/crowdstrike-spotlight-humio-package-integration/container:<version>
 ```
