@@ -39,8 +39,20 @@ accept = application/json                                       #HEC post header
 humiohecverify = True                                           #HEC SSL verify setting, modified only if needed
 ```
 
-
 ## Configuration Example - Run in container
 
-The application may be executed using container common settings may be provided by environment
+The application may be executed using container common settings may be provided by environment, cron or systemd can
+be used to schedule the task
 
+```bash
+#run this command only once this volume is used to store the checkpoint
+#docker volume create cwd-spotlight-data
+
+docker run \
+    -e HUMIO_HEC_URL=https://cloud.us.humio.com/api/v1/ingest/hec/raw  \
+    -e HUMIO_HEC_TOKEN=<humiohectoken> \
+    -e FALCON_CLIENT_ID=<client_id> \
+    -e FALCON_CLIENT_SECRET=<client_secret> \
+    --mount source=cwd-spotlight-data,target=/data \
+    ghcr.io/crowdstrike/crowdstrike-spotlight-humio-package-integration/container:<version>
+```
